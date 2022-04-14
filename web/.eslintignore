@@ -1,0 +1,12 @@
+/*.js
+/build/
+/config/
+/dist/
+/lib/
+/views/
+/node_modules/
+
+
+
+.env.local
+.env.*.local

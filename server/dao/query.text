@@ -1,0 +1,48 @@
+use product
+
+create table t_board
+(
+	BoardTypeID varchar(100) not null,
+	BoardSeq int  AUTO_INCREMENT PRIMARY key,
+	AuthorID varchar(100) not null,
+	AuthorName varchar(100) not null,
+	Title	varchar(200) not null,
+	Contents TEXT	null,
+	CreateDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	DelYN		char(1)
+	
+);
+
+
+
+
+
+
+insert into t_board(BoardTypeID,  AuthorID, AuthorName, Title, Contents,  DelYN) values ('notice','test1','홍길동', '공지사항제목입니다.','안녕하세요. 공지사항입니다.','N' );
+insert into t_board(BoardTypeID,  AuthorID, AuthorName, Title, Contents,  DelYN) values ('notice','test1','홍길동', '제목2','안녕하세요. 공지사항입니다.','N' );
+insert into t_board(BoardTypeID,  AuthorID, AuthorName, Title, Contents,  DelYN) values ('notice','test1','홍길동', '제목3.','안녕하세요. 공지사항입니다.','N' );
+insert into t_board(BoardTypeID,  AuthorID, AuthorName, Title, Contents,  DelYN) values ('notice','test1','홍길동', '제목4.','안녕하세요. 공지사항입니다.','N' );
+insert into t_board(BoardTypeID,  AuthorID, AuthorName, Title, Contents,  DelYN) values ('notice','test1','홍길동', '제목5.','안녕하세요. 5.','N' );
+insert into t_board(BoardTypeID,  AuthorID, AuthorName, Title, Contents,  DelYN) values ('notice','test1','홍길동', '제목6.','안녕하세요. 6.','N' );
+insert into t_board(BoardTypeID,  AuthorID, AuthorName, Title, Contents,  DelYN) values ('notice','test1','홍길동', '제목7.','안녕하세요. 7.','N' );
+insert into t_board(BoardTypeID,  AuthorID, AuthorName, Title, Contents,  DelYN) values ('notice','test1','홍길동', '제목8.','안녕하세요. 8.','N' );
+insert into t_board(BoardTypeID,  AuthorID, AuthorName, Title, Contents,  DelYN) values ('notice','test1','홍길동', '제목9.','안녕하세요. 9.','N' );
+insert into t_board(BoardTypeID,  AuthorID, AuthorName, Title, Contents,  DelYN) values ('notice','test1','홍길동', '제목110.','안녕하세요. 10.','N' );
+
+
+
+create table t_login
+(
+	idx int  AUTO_INCREMENT PRIMARY key,
+	userid varchar(100) not null,
+	passwd varchar(100) not null,
+	AuthorName varchar(100) not null,
+	email varchar(100) null,
+	CreateDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	AdminYN		char(1) null,
+	DelYN		char(1)	 null
+);
+
+
+insert into t_login (userid, passwd, authorname, email, delyn,AdminYN) values ('zz17779','1q2w3e','테스트','test@naver.com','N','Y');
+insert into t_login (userid, passwd, authorname, email, delyn,AdminYN) values ('zz17778','1q2w3e','홍길동','test@gmail.com','N','N');
