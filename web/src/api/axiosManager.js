@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 const axiosinstance  = axios.create({
-  // baseURL: 'https://localhost',
+   baseURL: 'http://localhost:3000',
     timeout : 15 * 1000
 })
 

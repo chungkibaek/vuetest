@@ -3,8 +3,28 @@ const express = require('express');
 const app = express();
 const session = require('express-session');
 const fs = require('fs');
-
+const cors = require('cors');
+const port = 3000;
 const bodyParser = require("body-parser");
+
+
+
+//특정url일 경우에만 cors허용하도록 서버에 설정 , 'http://192.168.219.106:8081'
+var allowlist = ['http://localhost:8081']
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (allowlist.indexOf(req.header('Origin')) !== -1) {
+    console.log('origin: true')
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  } else {
+    console.log('origin: false')
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
+
+// app.use(cors());
+app.use(cors(corsOptionsDelegate));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,7 +58,7 @@ app.use(session({
   }));
     
  
-  const server = app.listen(3000, () => {
+  const server = app.listen(port, () => {
 
     console.log('Server started. port -------------> 3000.');
   });
