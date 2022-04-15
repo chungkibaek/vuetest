@@ -8,6 +8,7 @@
                             <div class="sb-sidenav-menu-heading">웹 메뉴</div>
                             <router-link to="/noticelist" class="nav-link" >게시판</router-link>
                             <router-link to="/talkboardList" class="nav-link" >게시판2</router-link>
+                            <router-link to="/itemlist" class="nav-link" >ITEM</router-link>
                             <router-link to="/about" class="nav-link" >About</router-link>
 
 

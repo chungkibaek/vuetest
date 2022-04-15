@@ -87,6 +87,34 @@ const routes = [
     name: 'AdminUserList',
     component: () => import('../views/admin/userList.vue')
   }
+  //item관련
+  ,
+  {
+    path: '/itemlist',
+    name: 'ItemList',
+    component: () => import('../views/item/itemList.vue')
+  }
+  ,
+  {
+    path: '/itemview',
+    name: 'ItemView',
+    component: () => import('../views/item/itemView.vue')
+  } ,
+  {
+    path: '/itemmodify',
+    name: 'ItemModify',
+    component: () => import('../views/item/itemModify.vue')
+  },
+  {
+    path: '/itemwrite',
+    name: 'ItemWrite',
+    component: () => import('../views/item/itemWrite.vue')
+  }
+
+
+
+
+
 
 
 

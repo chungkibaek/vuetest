@@ -32,11 +32,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const productRoute = require('./routes/product/productRoute');
  const boardRoute = require('./routes/board/boardRoute');
  const userRoute = require('./routes/user/userRoute');
+ const itemRoute = require('./routes/item/itemRoute');
 
 
 app.use('/', productRoute);
  app.use('/board', boardRoute);
  app.use('/user', userRoute);
+ app.use('/item', itemRoute);
 
 //const mysql = require('mysql');
 const dbmaria = require('./database/connectDB.js');
