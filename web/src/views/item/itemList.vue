@@ -1,99 +1,101 @@
 <template>
     <div>
       {{pageTitle}}
-      <g-SearchForm @click="getItemList" id="search" :searchData='keyword'>
+{{searchkeyword}}
+      <g-SearchForm @click="handlerSearchClick" id="search" :searchData='keyword' />
 
-      </g-SearchForm>
+
+<!-- <b-form-input
+      v-model="keyword"
+      class="mb-2 mr-sm-2 mb-sm-0"
+    ></b-form-input>
+    <button @click="handlerSearchClick">검색</button> -->
+
 
         <p align="left">전체 : {{totalCount}} 건</p>
 
-        <g-TableForm :headerList="headerList"
+        <g-tableList :headerList="headerList"
                 :itemList="itemList"
                 :itemKeyList="itemKeyList"
-                :movepage="movepage"
-                :perPage ="perPage"
-                :currentPage="curpage"
-                :rows="rows"
-                v-on:movepage="goToDetail"
-                v-on:pagelink="getItemList"
-                @detailClick="detailButtonClick"
-                @deleteClick="deleteButtonClick"
-            >
+            />
 
-        </g-TableForm>
-
-        <div align="right" v-if="this.storeUser.user.userid != undefined ">
-            <button type="button" class="btn btn-lg btn-danger"  @click="noticeInsert">추가</button>
-        </div>
-
-        <noticinfoComponent :id="'dignotice'" ref="dlgnotice" @saveSubmit="saveSubmit">
-        </noticinfoComponent>
+      <g-pagingNav
+          :per-page = "pageCount"
+          :total-rows = "totalCount"
+          :value = "pageNumber"
+          aria-controls = "tblTest"
+        />
 
     </div>
 
 </template>
 <script>
-// import axios from 'axios';
- import {BoardController} from '@/api'
+ import axios from 'axios';
+ import {ItemController} from '@/api'
 import noticinfoComponent from '../common/NoticeDetailModal.vue'
  import {  mapGetters } from 'vuex'
 const userInfoStore = 'userInfoStore'
+import listviewMixins from '@/mixins/listview'
+
+const defaultOption = {
+  pageNumber : 1, //현재번호
+  pageCount : 10,//한화면에 표시할 개수
+  keyword : '' //검색조건
+}
 
 
 function getItemList({query}){
 
-    let url =   '/item/itemlist';
+  console.log("getItemList start------------")
 
-      const body = {
-                  boardtype : 'notice',
-                  keyword:'',
-                  start : 1,
-                  end : 10
+  let url =   '/item/itemlist';
 
-              }
+  query = _.merge(_.clone(defaultOption), query  || {})
 
+  console.log(query)
 
   return Promise.all([
-       BoardController.getboardList(url, body)
+       ItemController.getItemList(url, query)
   ])
 
 }
 
-// --회차, itemid, 제목, 내용, 기간(start~end), 상태 , 건수, 등록일
-//  sub1.itemid, sub1.seqid, sub1.title, concat(startdate , '~', enddate) as termdate, sub1.status, sub1.createdate , sub1.cnt
-
 export  default{
     name :'tableList',
     components:{noticinfoComponent},
+    mixins : [listviewMixins],
+    // props : {
+    //   searchkeyword :{
+    //     type : String,
+    //     default : ''
+    //   }
+    // },
+
     data(){
         return {
             pageTitle : "아이템 목록",
             headerList: ["회차", "제목", "기간","상태", "건수", "등록일"],
             itemList: [],
-            keyword:'',
-            movepage : 'naver',
-           itemKeyList:  ["seqid", "title", "termdate","status", "cnt", "createdate"],
-          perPage :10,          // 몇개 씩 보여줄지
-          curpage : 1,
-            rows: 10,
+            itemKeyList:  ["seqid", "title", "termdate","status", "cnt", "createdate"],
             totalCount : 0,
-            test : ''
-
+              keyword : ''
         };
     },
     computed: {
         //로그인 정보를 store를 통해서 가져온다.
        ...mapGetters(userInfoStore, {storeUser : 'GE_USER'}),
 
+      searchkeyword(){
+               this.keyword = this.$route.query.keyword
+      console.log("searchkeyword_keyworkd-----------" +  this.$route.query.keyword)
+      }
+    },
+    mountd() {
+      // console.log(this.$route.query.pageNumber)
+       this.keyword = this.$route.query.keyword
+ console.log("mounted_keyworkd-----------" + keyword)
 
     },
-    watched (){
-
-    },
-    mounted() {
-
-    },
-
     beforeRouteEnter(to, from, next) {
       getItemList({query : to.query})
         .then(response =>{
@@ -103,111 +105,46 @@ export  default{
     },
     beforeRouteUpdate(to, from, next){
       getItemList({query : to.query})
-        .then(result =>{
-            console.log( response[0].data.contents)
-            this.setViewData(result)
+        .then(response =>{
+            this.setViewData(response)
             next()
         })
+    },
+    mounted(){
+
+
     },
     methods : {
 
       setViewData(response){
-
-        // console.log(response)
-         this.itemList =   response[0].data.contents
-        this.rows = response[0].data.pnTotal
+        this.itemList =   response[0].data.contents
         this.totalCount =response[0].data.totalCount
-
       },
-        getItemList(currentPage, pKeyworrd){
+      handlerSearchClick(page, keyword){
+        console.log('pageNumber----->' + this.pageNumber)
+        console.log('pageCount----->' + this.pageCount)
+         console.log('keyword----->' +keyword)
 
-         this.curpage = currentPage
-        let url =   '/item/itemlist';
+        const query = _.pickBy({
+          pageNumber :  this.pageNumber,
+          pageCount :  this.pageCount,
+          keyword : keyword
+        })
 
-        const tmpkeyword = pKeyworrd  || '';
+        const oldquery = this.$route.query
 
-          this.body = {
-                      keyword:tmpkeyword,
-                      start : currentPage,
-                      end : this.perPage
+        if(oldquery.pageNumber !== 1 || _.has(oldquery, 'pageNumer'))
+          query.pageNumber = 1
 
-                  }
-
-            BoardController.getboardList(url, this.body)
-                .then(response =>{
-
-                  console.log( response.status)
-                  console.log( response.data.contents)
-                    this.itemList =   response.data.contents
-                    this.rows = response.data.pnTotal
-                      this.totalCount =response.data.totalCount
-                })
-
-         } ,
+        this.$router.push({
+          name : this.$route.name,
+          query
+        }).catch(()=>{})
 
 
-        goToDetail(boardseq,movepage){
-            const param = {
-                        id: boardseq,
-                        page : movepage
-
-                    }
-
-            //get방식
-            this.$router.push({path:'/noticedetail/', query:param});
-            //post방식
-            //  this.$router.push({ name: "NoticeDetail", params: param});
-        },
-        noticeInsert(){
-             this.$router.push({path:'/noticeWrite/'});
-        },
-        detailButtonClick(item){
-            // alert('detailButtonClick-->' + item.AuthorName)
-             console.log(item)
-
-            this.$refs.dlgnotice.show(item)
+      }
 
 
-        },
-        deleteButtonClick(BoardSeq){
-
-                alert('deleteButtonClick--->' +  BoardSeq)
-
-            const url = '/board/notice/noticeDelete'
-             const param = [BoardSeq]
-
-            this.$swal.fire({
-                title: '삭제 하시겠습니까?',
-                showCancelButton: true,
-                confirmButtonText: `저장`,
-                cancelButtonText: `취소`
-            }).then(async (result) => {
-                if (result.isConfirmed) {
-
-                     await this.$api(url,{param : param});
-                    this.$swal.fire('삭제되었습니다!', '', 'success');
-                    this.getNoticeList(1,'')
-                }
-            });
-
-
-        },
-         saveSubmit(e){
-            console.log(e.data)
-
-            //저장로직추가 noticeUpdate
-            const url = '/board/notice/noticeUpdate'
-            const param = [ e.data.title, e.data.Contents, e.data.BoardSeq]
-
-            console.log(param)
-            this.$api(url,{param : param});
-
-            this.getNoticeList(1,'')
-
-            const result = 'success'
-            e.done(result)
-
-        }
     }
 
 

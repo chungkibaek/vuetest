@@ -2,13 +2,13 @@
   <div>
 
       <div align="right">
-        
-        <slot name="searchAdd">          
+
+        <slot name="searchAdd">
         </slot>
-        <input type="text" v-model="searchKeyword" placeholder="검색내용 입력"  v-on:change="handlerSearchClick">    
-       
-        <button @click="handlerSearchClick">검색</button>    
-   
+        <input type="text" v-model="searchKeyword" placeholder="검색내용 입력"  v-on:change="handlerSearchClick">
+
+        <button @click="handlerSearchClick">검색</button>
+
       </div>
 
   </div>
@@ -28,13 +28,37 @@
       return {
         searchKeyword: this.searchData
       }
-    }    ,
+    },
+ computed : {
+      computedPerPage(){
+        console.log('computedPerPage11111---->' + this.searchKeyword)
+
+      },
+      computedTotalRows(){
+        console.log('computedTotalRows222222222----> ' + this.searchKeyword)
+
+      },
+    },
+    watch:{
+      value(newVal){
+          console.log('newVal---->' +newVal)
+
+        // alert('watch_value' + newVal)
+        // this.value_ = newVal
+      },
+      value_(newVal){
+        console.log('newVal---->' +newVal)
+        // alert('watch_value_' + newVal)
+        // this.$emit('update:value', newVal)
+      }
+    },
+
     methods: {
       handlerSearchClick () {
-         
+
           this.$emit(EVENT_CLICK.CLICK,1,this.searchKeyword);
-        
-        // this.$emit(EVENT_CLICK.CLICK, e); 
+
+        // this.$emit(EVENT_CLICK.CLICK, e);
       }
     }
   }

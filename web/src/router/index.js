@@ -92,7 +92,13 @@ const routes = [
   {
     path: '/itemlist',
     name: 'ItemList',
-    component: () => import('../views/item/itemList.vue')
+    component: () => import('../views/item/itemList.vue'),
+
+    props : route =>({
+      pageNumber : route.query.pageNumber,
+      pageCount : route.query.pageCount,
+      searchkeyword: route.query.searchKeyword
+    })
   }
   ,
   {

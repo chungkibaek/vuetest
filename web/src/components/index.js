@@ -9,7 +9,7 @@ import DatePicker from './Datepicker.vue'
 import newDatePicker from './newDatepicker.vue'
 import Pagination from './Pagination.vue'
 import Table from './Table.vue'
-
+import TableList from './TableListComponent.vue'
 
 
 Vue.component('g-SearchForm', SearchForm)
@@ -21,3 +21,5 @@ Vue.component('g-DatePicker', DatePicker)
 Vue.component('g-newDatePicker', newDatePicker)
 Vue.component('g-Pagination', Pagination)
 Vue.component('g-table', Table)
+Vue.component('g-tableList', TableList)
+
