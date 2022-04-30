@@ -1,0 +1,31 @@
+{
+    "version" : "0.1.0",
+    "tree" : [
+        {
+            "name" : "사용자관리",
+            "key" : "userMg",
+            "pathName" : "usermg-userinfo-userBook",
+            "hidden" :"false",
+            "permission" : 0,
+            "child" : [
+                {
+                    "name" : "사용자정보",
+                    "key" : "userBook",
+                    "child" : [
+                        {
+                            "name" : "사용자1"  ,
+                            "key" : "userinfo",
+                            "component" : "userinfo"                            
+                        },
+                        {
+                            "name" : "사용자2"  ,
+                            "key" : "usermg",
+                            "component" : "usermg"                            
+                        }                        
+                    ]
+                }
+            ]
+
+        }
+    ]
+}

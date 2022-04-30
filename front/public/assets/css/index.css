@@ -1,0 +1,181 @@
+
+.inpt{
+    height: 36px;
+    padding: 0 12px;
+    background: #ffffff;
+    border: 1px solid #dadada;
+    box-sizing: border-box;
+    border-radius: 5px;
+    color: #333;
+    font-size: 14px;
+
+}
+
+.dim{
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 11;
+}
+
+.dim.pop2 { z-index : 12;}
+.dim.confirm {z-index: 13;}
+
+.pop-section{padding: 30px;}
+.pop-stit{
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    color:#534f8f;
+    line-height: 27px;
+    margin-bottom: 10px;
+
+}
+
+.pop-close{
+    width: 23px;
+    height: 23px;
+    background: url("../images/icon/pop_close.png") no-repeat 50%; 
+    background-size: 100%;
+    text-indent: -9999px;
+    border: 0;
+}
+
+.pop-confirm-area{
+    position: fixed;
+    -webkit-transform: translate(-50%, -50%);
+    transform:  translate(-50%, -50%);
+    left: 50%; top: 50%; background: #fff;
+    width:370px; background: #ffffff;
+    -webkit-box-shaow:0px 4px 20px rgba(0,0,0,0.2);
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+    border-radius: 5px;     
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 14;
+
+}
+
+.pop-confirm-area .pop-confirm-head{height: 70px; position: relative;}
+
+.pop-confirm-area .pop-confirm-head .pop-close{
+    position: absolute;
+    right: 24px;
+    top:50%;
+    margin-top: -11.5px;
+}
+
+.pop-confirm-area .tit_area{margin-bottom: 14px;}
+
+.pop-confirm-area  .tit_area .tit{font-size: 20px; font-weight: 500; color: #222; line-height: 30px;}
+
+.pop-confirm-area .pop-confirm-cont{padding:0 30px 50px;}
+
+.pop-confirm-area .pop-confirm-footer{
+    display: table;
+    width:100%;
+    border-radius: 0 0 5px 5px;
+    overflow: hidden;
+}
+
+.pop-confirm-area .pop-confirm-footer li{display: table-cell;}
+
+.pop-confirm-area .pop-confirm-footer li + li{width: 62%;}
+
+.pop-confirm-area .pop-confirm-footer li button{
+    display: block;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background: #f76252;
+    font-size: 16px;
+    color: #fff;
+}
+
+.pop-confirm-area .pop-confirm-footer li button.cbtn{
+    background: #e1e1e1;
+    color:#666;
+}
+
+.pop-confirm-area .ty2{width:360px;}
+.pop-confirm-area .ty2 .pop-confirm-cont .pop-desc{color:#222;text-align: center;}
+
+.pop-desc{font-size: 16px; color: #666; line-height: 24px;}
+
+
+/*페이징관련*/
+
+.paging-area {height:48px; margin-top:30px; text-align: center; position: relative;}
+.paging-area a:not(.b-btn)
+{
+    display: inline-block; 
+    width: 30px;
+    height: 30px; 
+    border-radius: 3px; 
+    -webkit-box-sizing: border-box;  box-sizing: border-box;
+    color: #999;
+    line-height: 30px;
+    background-size: 19px auto;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 19px auto;
+}
+
+.paging-area a:not(.b-btn):hover, .paging-area a:not(.b-btn).active
+{
+    color: #fff;
+    background-color: #534f8f;
+}
+
+.paging-area a:not(.b-btn).first{
+    width: 19px;
+    text-indent: -9999px;    
+    /* background-image: ; */
+}
+
+.paging-area a:not(.b-btn).first:hover{
+    /* background-image: ; */
+    background-color: #fff;
+}
+
+.paging-area a:not(.b-btn).prev{
+    width:19px;
+    margin-right: 10px;
+    text-indent: -9999px;
+    /* background-image: ; */
+}
+
+.paging-area a:not(.b-btn).prev:hover{
+    /* background-image: ; */
+    background-color: #fff;
+}
+
+.paging-area a:not(.b-btn).next{
+    width:19px;
+    margin-right: 10px;
+    text-indent: -9999px;
+    /* background-image: ; */
+}
+
+.paging-area a:not(.b-btn).next:hover{
+    /* background-image: ; */
+    background-color: #fff;
+}
+
+.paging-area a:not(.b-btn).last{
+    width:19px;
+    margin-right: 10px;
+    text-indent: -9999px;
+    /* background-image: ; */
+}
+
+.paging-area a:not(.b-btn).last:hover{
+    /* background-image: ; */
+    background-color: #fff;
+}
+
+
+.paging-area .right{position: absolute; right: 0; top:-9px}
+
+.paging-area .left{position: absolute; right: 0; top:4px}

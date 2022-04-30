@@ -2,13 +2,14 @@ import axios from 'axios'
 
 
 const axiosinstance  = axios.create({
-   baseURL: 'http://localhost:3000',
+  //  baseURL: 'http://localhost:7000',
     timeout : 15 * 1000
 })
 
 //요청 인터셉터
 axiosinstance.interceptors.request.use(req => {
   console.log('request interceptor 호출')
+
   return req
 }, error => {
   console.log('[axios_interceptor_Request error]' + error.response.data)

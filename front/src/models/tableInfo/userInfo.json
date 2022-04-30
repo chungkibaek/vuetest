@@ -1,0 +1,34 @@
+// const headerList = ref( ["작성자", "아이디", "이메일", "관리자여부"])
+// const itemKeyList = ref(["AuthorName", "userid", "email","AdminYN"])
+
+{
+    "AuthorName" : {
+        "colName" : "작성자",
+        "width" : "8%",
+        "tdType" : "text",
+        "class" : "cate",
+        "orderBy" : false
+    },
+    "userid" : {
+        "colName" : "아이디",
+        "width" : "8%",
+        "tdType" : "text",
+        "class" : "cate",
+        "orderBy" : false
+    },
+    "email" : {
+        "colName" : "이메일",
+        "width" : "",
+        "tdType" : "em",
+        "class" : "text",
+        "orderBy" : false
+    },
+    "AdminYN" : {
+        "colName" : "관리자여부",
+        "width" : "8%",
+        "tdType" : "text",
+        "class" : "cate",
+        "orderBy" : false
+    }
+
+}

@@ -7,6 +7,8 @@ import java.util.List;
 import com.example.demo.sample.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -22,10 +24,11 @@ public class TestController {
 
         return  "testddd";
     }
-    @GetMapping("/users")
+    @RequestMapping(value="/users", method = RequestMethod.GET)
     public List<HashMap<String, Object>> getUsers() {
 
         System.out.println(userService.getUsers());
+        
         return userService.getUsers();
     }
 

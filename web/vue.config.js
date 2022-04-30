@@ -1,20 +1,20 @@
 //springboot
-// const target = 'http://127.0.0.1:7000';
+const target = 'http://127.0.0.1:7000';
 
 
-// module.exports = {
-//   lintOnSave: false,
-//   devServer: {
-//     port: 8080,
-//     proxy: {
-//       "^/users": {
-//         target,
-//         changeOrigin: true
-//       }
+module.exports = {
+  lintOnSave: false,
+  devServer: {
+    port: 8080,
+    proxy: {
+      "^/users": {
+        target,
+        changeOrigin: true
+      }
 
-//     }
-//   }
-// }
+    }
+  }
+}
 
 
 
@@ -24,7 +24,7 @@
 
 
 // node.js테스트
-
+/*
 const target = 'http://127.0.0.1:3000';
 
 module.exports = {
@@ -56,3 +56,5 @@ module.exports = {
     }
   }
 }
+
+*/
