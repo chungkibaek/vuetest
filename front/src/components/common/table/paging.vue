@@ -2,7 +2,7 @@
     <div class="paging-area">
            <div class="left">
                 <span class="total">Total
-                    <em>{{PagingData.totalRecordCount}}</em>
+                    <em>{{pagingData.totalRecordCount}}</em>
                 </span>
             </div> 
 
@@ -22,8 +22,7 @@
             <a href="#"
                 v-for="n in pageNoArr"
                 :key="n"
-                class="prev"
-                v-show="pagingData.pageNo == n ? 'active' : ''"    
+                :class="pagingData.pageNo == n ? 'active' : ''"    
                 @click="movePage(n)">
                 {{n == 0 ? '' : n}}
             </a>                
@@ -31,14 +30,14 @@
 
             <a href="#"
                 class="next"
-                v-show="pagingData.pageNo < pagingData.totalRecordCount"
+                v-show="pagingData.pageNo < pagingData.totalPageCount"
                 @click="movePage(pagingData.pageNo+1)">
                 next
             </a>
             <a href="#"
                 class="last"
-                v-show="(pagingData.pageNo != pagingData.totalRecordCount) && (pagingData.totalRecordCount > 1)"   
-                @click="movePage(pagingData.totalRecordCount)">
+                v-show="(pagingData.pageNo != pagingData.totalPageCount) && (pagingData.totalPageCount > 1)"   
+                @click="movePage(pagingData.totalPageCount)">
                 last
             </a>
             <slot name="buttonArea"></slot>
@@ -57,38 +56,43 @@ export  default{
         const store = useStore()
         const pageNoArr = ref([])
         const pagingData = computed(()=>{
-            // return store.state.treeMenu.pagingBean
+             return store.state.pageinfo.pagingBean
         })
 
         const currentTabkey = computed(() =>{
             // return store.state.treeMenu.tabKey
         })
 
-        watch(pageingData, (newValue) =>{
-            pageNoArr.value.length = 0
+        watch(pagingData, (newValue) =>{
 
-            for(let i = newValue.pageStartNo ; i <= newValue.pageEnd ;i++){
+          
+            pageNoArr.value.length = 0
+            console.log(newValue)
+
+            for(let i = newValue.pageStartNo ; i <= newValue.pageEndNo ;i++){
                 pageNoArr.value.push(i)
             }
+    console.log(   pageNoArr.value.length )
+              
         })
 
         const movePage = async(pageNo) =>{
+
                let tempPageData = [
-                    {type:'tabkey', value : currentTabkey.value}, 
                     {type:'pageNo', value : pageNo}
                    ] 
 
-                // store.commit('treeMenu/setUpdateSearchData', tempPageData)
-                // store.commit('treeMenu/setPagingNum', pageNo)
+                 store.commit('pageinfo/setUpdateSearchData', tempPageData)
+                 store.commit('pageinfo/setPagingNum', pageNo)
 
-                // let tmpSearchData = store.state.treeMnu.tmpSearchData
+                  let tmpSearchData = store.state.pageinfo.searchData
 
-                // await store.dispatch(store.state.tableInfo.listFetchUrl, tmpSearchData)
+                 await store.dispatch(store.state.tableinfo.listFetchUrl, tmpSearchData)
         }
 
         return {
             pageNoArr,
-            pageingData,
+            pagingData,
             movePage
         }
         

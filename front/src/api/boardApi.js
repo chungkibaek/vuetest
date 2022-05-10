@@ -1,4 +1,4 @@
-
+/*
 import axiosManager from '@/api/axios'
 
 
@@ -20,12 +20,13 @@ export const getUserList = async (params) =>{
         }
     }
 
+     console.log(url)
 
     return new Promise((resolve, reject) => {
-        // axios.get('/users', {params : item})
+        
         axios.get(url, params)        
         .then(response => {
-            console.log(response.data)
+            console.log(response)
             resolve(axiosManager.handleResponse(response))
         })
         .catch(err => {
@@ -39,9 +40,10 @@ export const getUserList = async (params) =>{
 
 }
 
+*/
 
-/*
-/import {get, post} from './axios'
+
+import {get, post} from './axios'
 
 
 export const getboardList = async (item) =>{
@@ -80,4 +82,4 @@ export const regBoardAjax = async(parmas) =>{
         return data
     }
 
-}*/
+}

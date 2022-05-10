@@ -1,6 +1,7 @@
 import {getUserFromCookie} from '@/utils/cookies.js'
 
 import {getboardList, getUserList} from '@/api/boardApi'
+import pageinfo from '../pageinfo/index'
 
 export default {
     namespaced : true,
@@ -21,10 +22,18 @@ export default {
     },
     actions : {
          async fetchItemListData({commit,dispatch},payload){
-             console.log("fetchItemListData")
              commit("clearItemList")
 
             const result = await getUserList(payload)
+
+            for(let item in result.userList){
+                // console.log(result.userList[item])
+
+     
+                commit("setItemList",  result.userList[item])
+            }
+
+            dispatch("pageinfo/fetchPaging", {payload: result},{root:true})
 
 
 

@@ -1,89 +1,57 @@
 import store from '@/store'
 
 
+
 export function setInterceptors(instance){
- 
-  // instance.interceptors.request.use(
+
+    instance.interceptors.request.use(
+      function (config) {
+          // 요청 바로 직전
+          // axios 설정값에 대해 작성합니다.
+          return config;
+      }, 
+      function (error) {
+          // 요청 에러 처리를 작성합니다.
+          return Promise.reject(error);
+      }
+    );
+
+
+    instance.interceptors.response.use(
+      async function (response) {
+
+        if(response.data.status == 401 || response.data.status == 402){
+
+            //로그인사용자 저장..
+            //쿠키등 각종 정보 등록
+
+        }
+          return response;
+      },
+
+      function (error) {
+          return Promise.reject(error);
+      }
+    );  
     
-
-  //   function(config){
-  //     console.log('request interceptor 호출')
-  //     config.headers.Authorization = ''
-  //     return config
-  //   },
-  //   function(error){
-  //     return Promise.reject(error)
-  //   }
-
-  // )
+    return instance;
+  
     //요청 인터셉터
-  instance.interceptors.request.use(req => {
-    console.log('request interceptor 호출')
-    return req
-  }, error => {
-    console.log('[axios_interceptor_Request error]' + error.response.data)
-    return Promise.reject(error)
-  })
+  // instance.interceptors.request.use(req => {
+  //   console.log('request interceptor 호출')
+  //   return req
+  // }, error => {
+  //   console.log('[axios_interceptor_Request error]' + error.response.data)
+  //   return Promise.reject(error)
+  // })
 
   //응답 인터셉터
-  instance.interceptors.response.use(res=> res,  error =>{
-    console.log('[axios_interceptor_Response error]' + error.response.data)
-    return Promise.reject(error);
-  })
+  // instance.interceptors.response.use(res=> res,  error =>{
+  //   console.log('[axios_interceptor_Response error]' + error.response.data)
+  //   return Promise.reject(error);
+  // })
+
+  
 
 }
 
-
-
-
-
-/*
-const axiosinstance  = axios.create({
-   baseURL: 'http://localhost:3000',
-    timeout : 15 * 1000
-})
-
-//요청 인터셉터
-axiosinstance.interceptors.request.use(req => {
-  console.log('request interceptor 호출')
-  return req
-}, error => {
-  console.log('[axios_interceptor_Request error]' + error.response.data)
-  return Promise.reject(error)
-})
-
-//응답 인터셉터
-axiosinstance.interceptors.response.use(res=> res,  error =>{
-  console.log('[axios_interceptor_Response error]' + error.response.data)
-  return Promise.reject(error);
-})
-
-
-function handleResponse(obj){
-  if(obj instanceof Error){
-    if(obj.response){
-      return{
-        status : obj.response.status,
-        success : false,
-        message : obj.response.statusText
-      }
-    }
-
-    return {
-      status : 500,
-      success : false,
-      message : obj.message
-    }
-
-  }
-
-  return Object.assign({}, obj, {status : 200})
-}
-
-
-export default{
-  axiosinstance,
-  handleResponse
-}
-
-*/

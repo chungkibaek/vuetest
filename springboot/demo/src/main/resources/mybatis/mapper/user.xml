@@ -9,4 +9,13 @@
         select userid, AuthorName, email, AdminYN from t_login
     </select>
 
+    <select id="getUserTotalCount" resultType="Integer">
+        select count(*) as totalCount from t_login
+    </select>
+   
+    <select id="getUserList" parameterType="com.example.demo.common.PagingBean" resultType="com.example.demo.common.UserInfoBean">
+        select userid, AuthorName, email, AdminYN 
+        from t_login
+        LIMIT ${startRow}, #{countPerRecord}
+    </select>
 </mapper>

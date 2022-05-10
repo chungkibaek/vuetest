@@ -2,6 +2,7 @@
 
 <template>
     <div>
+        {{itemList.length}}
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -11,11 +12,17 @@
             <tbody>
                 <tr v-for="(item, index) in itemList" :key="'item-' + index">
                     <td v-for="(itemKey, subIndex) in itemKeyList" :key="'item-key-' + subIndex">
+                           <a @click="goToDetail();" style="cursor:pointer;"> 
+                       
                        {{item[itemKey]}}                    
+                        </a>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <Paging>
+        </Paging>
 
     </div>
 
@@ -34,11 +41,25 @@ export default {
     components : {
         Paging
     },
-    props: ['headerList', 'itemList', 'itemKeyList'],
+    // props: ['headerList', 'itemList', 'itemKeyList'],
+    props:{
+        itemList : {
+            type : Array
+        },
+        headerList : {
+             type : Array
+        },
+        itemKeyList : {
+             type : Array
+        }       
+    },
     setup(props, {emit}){
 
         const store = useStore()
         const router = useRouter()
+        const detailPage = store.state.tableinfo.pathUrl.detail
+
+        const pagingBean = computed(()  => store.state.pageinfo.pagingBean)
 
         onBeforeMount(() =>{
 
@@ -56,9 +77,17 @@ export default {
             // store.commit('treeMenu/clearPagingBean')
         })
 
+        const goToDetail = () =>{
+            router.push({
+                name : detailPage,
+                query : ''
+            })
+        }
+
 
         return {
-
+            pagingBean,
+            goToDetail
         }
     }
 }

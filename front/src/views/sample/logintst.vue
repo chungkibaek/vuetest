@@ -26,20 +26,33 @@ export  default{
 
         const store = useStore()
         const headerList = ref( ["작성자", "아이디", "이메일", "관리자여부"])
-        const itemKeyList = ref(["AuthorName", "userid", "email","AdminYN"])
+        const itemKeyList = ref(["authorName", "userid", "email","adminYN"])     //userid, AuthorName, email, AdminYN 
+   
+
+        const pageNo = store.state.pageinfo.pagingNum
+
          const itemList =computed(() => store.state.board.itemList)
+         const listFetchUrl = computed(() => store.state.tableinfo.listFetchUrl)
 
 
-        const searchDataList = async()=>{
+        const searchDataList = async(onMountBool)=>{
                 let searchData = {
-                    test : ''
+                    pageNo : onMountBool ? pageNo : 1
                    }   
+
+            if(!onMountBool){
+                store.comit("paginfo/clearPaingNum")
+            }
+
+            //데이터조회
             await store.dispatch('board/fetchItemListData',searchData)
         }
 
 
     onMounted(async() =>{
-        await searchDataList()
+        console.log("1.mounted")
+        // store.commit('tableinfo/setListFetchUrl', 'board/fetchItemListData')
+        await searchDataList(true)
     })
 
 
@@ -47,7 +60,8 @@ export  default{
             headerList,
             itemKeyList,
             itemList,
-             searchDataList
+             searchDataList,
+             listFetchUrl
         }
     }
 
