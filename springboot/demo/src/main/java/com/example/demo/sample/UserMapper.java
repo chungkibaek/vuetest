@@ -17,4 +17,6 @@ public interface UserMapper {
     public Integer getUserTotalCount();
 
     public List<UserInfoBean> getUserList(PagingBean pagingBean);
+
+    public UserInfoBean getUserDetail(UserInfoBean pagingBean);
 }

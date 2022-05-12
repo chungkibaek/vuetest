@@ -12,7 +12,7 @@
             <tbody>
                 <tr v-for="(item, index) in itemList" :key="'item-' + index">
                     <td v-for="(itemKey, subIndex) in itemKeyList" :key="'item-key-' + subIndex">
-                           <a @click="goToDetail();" style="cursor:pointer;"> 
+                           <a @click="goToDetail(item);" style="cursor:pointer;"> 
                        
                        {{item[itemKey]}}                    
                         </a>
@@ -77,11 +77,20 @@ export default {
             // store.commit('treeMenu/clearPagingBean')
         })
 
-        const goToDetail = () =>{
+        const goToDetail = (item) =>{
+
+            let tmpQuery = {}
+
+            tmpQuery = {
+                idx : item.idx
+            }
+            
             router.push({
                 name : detailPage,
-                query : ''
+                query : tmpQuery
             })
+
+  
         }
 
 

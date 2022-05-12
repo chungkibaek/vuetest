@@ -14,8 +14,20 @@
     </select>
    
     <select id="getUserList" parameterType="com.example.demo.common.PagingBean" resultType="com.example.demo.common.UserInfoBean">
-        select userid, AuthorName, email, AdminYN 
+        select idx, userid, AuthorName, email, AdminYN 
         from t_login
         LIMIT ${startRow}, #{countPerRecord}
     </select>
+
+
+    <select id="getUserDetail" parameterType="com.example.demo.common.UserInfoBean" resultType="com.example.demo.common.UserInfoBean">
+        select idx, userid, AuthorName, email, AdminYN 
+        from t_login
+        
+        <where>
+            idx = #{idx}
+        </where>
+
+    </select>
+
 </mapper>

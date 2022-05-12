@@ -98,15 +98,17 @@ const instance = createInstance(config)
     }
  }
 
-// export const post = async(url, parmas ={})=>{
-//     try{
-//         return await instance.post(url, parmas)
+export const post = async(url, parmas ={})=>{
+    try{
+        
+        return await instance.post(url, parmas)
+        // return await instance.post(url, parmas,{headers})
 
-//     }catch(error){
-//         console.log(error)
-//         return networkError
-//     }
-// }
+    }catch(error){
+        console.log(error)
+        return networkError
+    }
+}
 
 
 

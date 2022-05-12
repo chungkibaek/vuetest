@@ -7,11 +7,10 @@ module.exports = {
   devServer: {
      port: 8080,
     proxy: {
-      "^/users": {
+      "^/api": {
         target,
         changeOrigin: true
       }
-
     }
   }
 }

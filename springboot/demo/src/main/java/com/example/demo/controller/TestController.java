@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.example.demo.common.PagingBean;
 import com.example.demo.common.UserInfoBean;
 import com.example.demo.sample.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +42,7 @@ public class TestController {
 
 
     // @RequestMapping(value="/users", method = RequestMethod.GET)
-    @GetMapping("/users")
+    @GetMapping("/api/users")
     public Map<String, Object> getUsers(@RequestParam(name = "pageNo") String pageNo) {
 
         Map<String, Object> map = new HashMap<String, Object>();
@@ -64,8 +67,23 @@ public class TestController {
     }
 
 
-//     @ResponseBody
-// public String getFoos(@RequestParam String id) {
-//     return "ID: " + id;
-// }
+    @GetMapping("/api/userDetail")
+    public Map<String, Object> getUserDetail(UserInfoBean userbean) {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        System.out.println("getUserDetail start--------------------------");
+        System.out.println("id----->" + userbean.getIdx());
+        System.out.println(userService.getUserDetail(userbean));
+
+        UserInfoBean result = userService.getUserDetail(userbean);
+        
+        System.out.println(result);
+
+
+        map.put("userDetail", result);
+
+        return map;
+    }
+
 }

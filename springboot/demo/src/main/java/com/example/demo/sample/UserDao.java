@@ -16,4 +16,8 @@ public class UserDao {
     public List<HashMap<String, Object>> getUsers() {
         return sqlSession.selectList("com.example.demo.sample.UserMapper.selectUsers");
     }
+
+    // public UserInfoBean getUserDetail(){
+    //     return sqlSession.selectList("com.example.demo.sample.UserMapper.selectUserDetail");
+    // }
 }

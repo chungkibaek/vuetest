@@ -38,9 +38,9 @@ export default{
             store.commit('temp/setIsAlertPopup')
             store.commit('temp/clearAlterMessage')    
             
-            router.push({
-                name : 'logintest'
-            })
+            // router.push({
+            //     name : 'logintest'
+            // })
 
         }
 

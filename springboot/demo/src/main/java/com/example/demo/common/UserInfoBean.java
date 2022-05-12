@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class UserInfoBean {
     //userid, AuthorName, email, AdminYN 
+    private String idx;
 
     private String userid;
 

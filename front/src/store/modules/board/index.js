@@ -1,6 +1,6 @@
 import {getUserFromCookie} from '@/utils/cookies.js'
 
-import {getboardList, getUserList} from '@/api/boardApi'
+import {getboardList, getUserList, getUserDetail} from '@/api/boardApi'
 import pageinfo from '../pageinfo/index'
 
 export default {
@@ -17,7 +17,15 @@ export default {
         },
         setItemList(state, payload){
             state.itemList.push(payload)
-        }
+        },
+        clearItemDetailData(state){
+            state.itemDetailData = {}
+        },
+        setItemDetailData(state, payload){
+            state.itemDetailData = payload
+        },
+        
+
 
     },
     actions : {
@@ -36,10 +44,31 @@ export default {
             dispatch("pageinfo/fetchPaging", {payload: result},{root:true})
 
 
+         },
+         async fetchItemDetail({state,commit}, payload){
+
+            console.log('fetchItemDetail')
+            commit('clearItemDetailData')            
+            const result = await getUserDetail(payload)
+            
+            const data = result.userDetail
+
+            let tempData = {
+                idx : data.idx ?? '',
+                userid : data.userid ?? '',
+                authorName : data.authorName ?? '',
+                email : data.email ?? '',
+                adminYN : data.adminYN ?? ''
+            } 
+
+            console.log('tempdata------------')
+            console.log(tempData)
 
 
+            commit('setItemDetailData',tempData)
 
          }
+
 
     }
 

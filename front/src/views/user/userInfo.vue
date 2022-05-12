@@ -51,9 +51,16 @@ export  default{
 
     onMounted(async() =>{
         console.log("1.mounted")
-        
-         await searchDataList(true)
-        //   store.commit('tableinfo/setListFetchUrl', 'board/fetchItemListData')
+
+        store.commit("tableinfo/setPathurl", {
+            reg : '',
+            list : 'userInfo',
+            detail : 'userDetail',
+            update : ''
+            
+        } )
+        // store.commit('tableinfo/setListFetchUrl', 'board/fetchItemListData')
+        await searchDataList(true)
     })
 
 

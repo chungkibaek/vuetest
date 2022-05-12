@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
 import board from './board.js'
+import user from './user.js'
 import sample from './sample.js'
 
 const routes = [
@@ -18,6 +19,7 @@ const routes = [
       import("../views/AboutView.vue"),
   },
   ...board,
+  ...user,
   ...sample
 ];
 

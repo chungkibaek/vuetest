@@ -59,7 +59,20 @@ export const getboardList = async (item) =>{
 
 export const getUserList = async (item) =>{
 
-    const{status, data} = await get('/users',item)
+    const{status, data} = await get('/api/users',item)
+
+    if(status == 200 ){
+        console.log(status)
+        console.log(data)
+        return data
+    }
+}
+
+export const getUserDetail = async (item) =>{
+
+    console.log('getUserDetail  call')
+    console.log(item)
+    const{status, data} = await get('/api/userDetail?idx='+item)
 
     if(status == 200 ){
         console.log(status)
@@ -69,11 +82,22 @@ export const getUserList = async (item) =>{
 }
 
 
-
-
-export const regBoardAjax = async(parmas) =>{
+export const updateUserInfoAjax = async(parmas) =>{
     
-    const{status, data} = await post('url',parmas)
+    const{status, data} = await post('/api/userInfoUpdate',parmas)
+
+    if(status == 200 ){
+        console.log(status)
+        console.log(data)
+
+        return data
+    }
+
+}
+
+export const regUserInfoAjax = async(parmas) =>{
+    
+    const{status, data} = await post('/api/userInfoInsert',parmas)
 
     if(status == 200 ){
         console.log(status)
