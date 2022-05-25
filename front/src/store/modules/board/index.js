@@ -7,7 +7,9 @@ export default {
     namespaced : true,
     state : {
         itemList : [],
-        itemDetailData : {}        
+        itemDetailData : {},
+        idx : '',
+        modifyMode : ''        
     },
     mutations : {
 
@@ -24,6 +26,18 @@ export default {
         setItemDetailData(state, payload){
             state.itemDetailData = payload
         },
+        setIdx(state,payload){
+            state.idx = payload
+        },
+        clearIdx(state){
+            state.idx = ''
+        },
+        setModifyMode(state,payload){
+            state.modifyMode = payload
+        },
+        clearModifyMode(state){
+            state.modifyMode = ''
+        }
         
 
 
@@ -31,18 +45,17 @@ export default {
     actions : {
          async fetchItemListData({commit,dispatch},payload){
              commit("clearItemList")
-
+               
+             //데이터조회
             const result = await getUserList(payload)
 
             for(let item in result.userList){
                 // console.log(result.userList[item])
-
      
                 commit("setItemList",  result.userList[item])
             }
 
             dispatch("pageinfo/fetchPaging", {payload: result},{root:true})
-
 
          },
          async fetchItemDetail({state,commit}, payload){

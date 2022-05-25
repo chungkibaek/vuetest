@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
 import board from './board.js'
+import item from './item.js'
 import user from './user.js'
 import sample from './sample.js'
 
@@ -19,6 +20,7 @@ const routes = [
       import("../views/AboutView.vue"),
   },
   ...board,
+  ...item,
   ...user,
   ...sample
 ];

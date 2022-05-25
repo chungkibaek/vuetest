@@ -22,16 +22,23 @@
 
 import {computed} from 'vue'
 import {useStore} from 'vuex'
-import {useRouter} from 'vue-router'
-
+import {useRouter, useRoute} from 'vue-router'
+import {updateUserInfoAjax, insertUserInfoAjax} from '@/api/boardApi'
 export default{
     setup() {
         
         const store = useStore()
         const router = useRouter()
+        const route = useRoute()
         const message = computed(() =>{
             return store.state.temp.confirmMessage; 
         })
+
+        const confirmType = store.state.temp.confirmType
+        const itemDetailData = store.state.board.itemDetailData
+        const detailPage = store.state.tableinfo.pathUrl.detail
+        const listPage = store.state.tableinfo.pathUrl.list
+        const modifyMode = store.state.board.modifyMode
 
         const popupClose = async() =>{
             store.commit('temp/setIsConfirmPopup')
@@ -39,15 +46,63 @@ export default{
 
         }
 
+        //확인버튼 클릭            
         const popupConfirm = async() =>{
 
-            //확인버튼 클릭시 crud 호출로직 추가    
-            
-            store.commit('temp/setIsConfirmPopup')
-            store.commit('temp/clerarConfirmMessage')          
+            if(confirmType == 'userinfo'){ //사용자관리 화면
 
-            store.commit('temp/setAlterMessage', '저장되었습니다.')
-            store.commit('temp/setIsAlertPopup')
+                console.log(itemDetailData)
+                console.log(detailPage)
+
+                let result = ''
+                
+                if(modifyMode == 'Y')
+                    result = await updateUserInfoAjax(itemDetailData)
+                else
+                    result  = await insertUserInfoAjax(itemDetailData)
+
+                    if(result.result == 'success'){
+
+                        store.commit('temp/setIsConfirmPopup')
+                        store.commit('temp/clerarConfirmMessage')      
+                        
+                        store.commit('temp/setAlterMessage', '저장되었습니다.')
+                        store.commit('temp/setIsAlertPopup')
+
+                        if(modifyMode == 'Y'){
+                            let tmpQuery = {}
+
+                            tmpQuery = {
+                                idx : route.query.idx
+                            }
+                            
+                            router.push({
+                                name : detailPage,
+                                query : tmpQuery
+                            })
+                        }else{
+                            router.push({
+                                name : listPage
+                            })
+                        }
+
+                        
+                        store.commit('board/clearModifyMode')
+
+                    }  
+            }else{
+                                
+                store.commit('temp/setIsConfirmPopup')
+                store.commit('temp/clerarConfirmMessage') 
+
+            }
+
+            
+            // store.commit('temp/setIsConfirmPopup')
+            // store.commit('temp/clerarConfirmMessage')          
+
+            // store.commit('temp/setAlterMessage', '저장되었습니다.')
+            // store.commit('temp/setIsAlertPopup')
 
             // router.push({
             //     name : 'logintest'
@@ -58,6 +113,9 @@ export default{
 
         return {
             message,
+            confirmType,
+            itemDetailData,
+            detailPage,
             popupClose,
             popupConfirm
         }

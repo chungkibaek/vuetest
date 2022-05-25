@@ -13,7 +13,7 @@
         <label class="col-md-3 col-form-label">이름</label>
         <div class="col-md-9">
           <div class="input-group mb-3">
-                <input type="text" class="form-control" v-model="authorName">
+                <input type="text" class="form-control inpt" v-model="authorName">
           </div>
         </div>
       </div>
@@ -57,7 +57,8 @@ import {useStore} from 'vuex'
 import {useRouter, useRoute} from 'vue-router'
 
 import {ref, onMounted , computed, onUnmounted} from 'vue'
-import LabelCheckbox from '../../components/common/checkbox/labelCheckbox.vue'
+import {updateUserInfoAjax} from '@/api/boardApi'
+
 export  default{
     name :'',
     components : {        
@@ -71,6 +72,8 @@ export  default{
         const pageNo = store.state.pageinfo.pagingNum
         const regPage = store.state.tableinfo.pathUrl.detail
         const listPage = store.state.tableinfo.pathUrl.list
+        const detailPage = store.state.tableinfo.pathUrl.detail
+        let isModifyYN = ref('N')
 
         const userid = ref('')
         const authorName = ref('')
@@ -85,7 +88,10 @@ export  default{
 
         onMounted(async() =>{
             console.log("1.userdetail mounted")
-            console.log(route.query.idx)
+            
+            if(route.query.idx){ //수정인 경우 데이터 조회
+
+            isModifyYN.value = 'Y'
 
             //상세화면 조회
              await store.dispatch('board/fetchItemDetail',route.query.idx)
@@ -97,6 +103,7 @@ export  default{
              authorName.value = data.authorName ?? ''
              email.value = data.email ?? ''
              adminYN.value = (data.adminYN =='Y') ? '1' : '0'
+            }
 
         })
 
@@ -106,19 +113,59 @@ export  default{
             })
         }
 
-        const saveUser = () =>{
+        const saveUser = async () =>{
 
              if(userid.value == ''){
                  store.commit("temp/setAlterMessage", '아이디를 입력하세요.')
                  store.commit("temp/setIsAlertPopup") 
-
                  return
              }
-            // alert('save')
-            //수정 updateUserInfoAjax
-            //저장 regUserInfoAjax
 
+             if(authorName.value == ''){
+                 store.commit("temp/setAlterMessage", '이름을 입력하세요.')
+                 store.commit("temp/setIsAlertPopup") 
+                 return
+             }        
+             
+             if(email.value == ''){
+                 store.commit("temp/setAlterMessage", '이메일을 입력하세요.')
+                 store.commit("temp/setIsAlertPopup") 
+                 return
+             }                  
+
+
+
+          let tempSaveData = {
+            idx : route.query.idx,
+            userid : userid.value,
+            authorName : authorName.value,
+            email : email.value,
+            adminYN :  adminYN.value == 1 ? 'Y' : 'N'
+          }
+          
+          store.commit("temp/setConfirmMessage","저장 하시겠습니까?")
+          store.commit('board/setItemDetailData', tempSaveData)
+          store.commit('board/setModifyMode' , isModifyYN.value)
+          store.commit("temp/setConfirmType",'userinfo')
+          store.commit("temp/setIsConfirmPopup")          
             
+          //  let result = await updateUserInfoAjax(tempSaveData)
+
+
+          //   if(result.result == 'success'){
+
+          //         let tmpQuery = {}
+
+          //         tmpQuery = {
+          //             idx : route.query.idx
+          //         }
+                  
+          //         router.push({
+          //             name : detailPage,
+          //             query : tmpQuery
+          //         })
+
+          //   }            
         }
 
         return {
@@ -129,6 +176,8 @@ export  default{
           pageNo,
           listPage,
           regPage,
+          detailPage,
+          isModifyYN,
           moveRoter,
           saveUser
         }

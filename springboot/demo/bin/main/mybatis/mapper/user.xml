@@ -9,14 +9,18 @@
         select userid, AuthorName, email, AdminYN from t_login
     </select>
 
-    <select id="getUserTotalCount" resultType="Integer">
+    <select id="getUserTotalCount" parameterType="com.example.demo.common.PagingBean"  resultType="Integer">
         select count(*) as totalCount from t_login
+        where (userid like CONCAT('%',#{searchkeyword},'%' )  or AuthorName like CONCAT('%',#{searchkeyword},'%' )  or email like CONCAT('%',#{searchkeyword},'%' ) )
     </select>
    
     <select id="getUserList" parameterType="com.example.demo.common.PagingBean" resultType="com.example.demo.common.UserInfoBean">
         select idx, userid, AuthorName, email, AdminYN 
         from t_login
+        where (userid like CONCAT('%',#{searchkeyword},'%' )  or AuthorName like CONCAT('%',#{searchkeyword},'%' )  or email like CONCAT('%',#{searchkeyword},'%' ) )
+        ORDER BY idx desc
         LIMIT ${startRow}, #{countPerRecord}
+       
     </select>
 
 
@@ -29,5 +33,28 @@
         </where>
 
     </select>
+
+
+    <update id="updateUserInfo" parameterType="com.example.demo.common.UserInfoBean">
+        update t_login
+        set userid = #{userid},
+            AuthorName = #{authorName}, 
+            email = #{email},
+            AdminYN  = #{adminYN}
+        where idx = #{idx}
+
+    </update>
+
+    <insert id="insertUserInfo" parameterType="com.example.demo.common.UserInfoBean">
+        insert into t_login (userid, passwd, authorname, email, delyn,AdminYN) 
+        values (#{userid},'1q2w3e',#{authorName},#{email},'N', #{adminYN});
+
+    </insert>
+
+    <delete id="deleteUserInfo" parameterType="com.example.demo.common.UserInfoBean">
+        delete from t_login 
+        where idx = #{idx}
+
+    </delete>
 
 </mapper>

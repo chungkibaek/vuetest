@@ -32,6 +32,10 @@
 
 }
 
+.bl-list > li {position: relative; padding-left: 15px; font-size: 16px;
+    color:#666; line-height: 24px;
+}
+
 .pop-close{
     width: 23px;
     height: 23px;
@@ -98,8 +102,12 @@
     color:#666;
 }
 
+
+
 .pop-confirm-area .ty2{width:360px;}
-.pop-confirm-area .ty2 .pop-confirm-cont .pop-desc{color:#222;text-align: center;}
+.pop-confirm-area .ty2 .pop-confirm-cont .pop-desc{
+    color:#222;text-align: center;
+}
 
 .pop-desc{font-size: 16px; color: #666; line-height: 24px;}
 
@@ -186,3 +194,177 @@
 .paging-area .right{position: absolute; right: 0; top:-9px}
 
 .paging-area .left{position: absolute; left: 0; top:4px}
+
+
+
+/* 검색폼*/
+.search-form {overflow:hidden;}
+
+.search-form .sch-btn { display: inline-block; width:60px; height: 36px;
+    line-height: 36px; color: #fff; background: #474563;
+    border-radius: 5px; font-size: 14px; font-weight: 500;
+}
+
+.search-form .sch-btn:hover { background-color: #504e6b;}
+
+.search-form .refresh-btn + .sch-btn { margin-left: 4px;}
+
+.search-form > ul { overflow: hidden; margin:  0 -5px 0;}
+
+.search-form > ul + ul { margin-top:  10px;}
+
+.search-form > ul > li {
+    float: left; width: 20%; padding: 0 5px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; font-size: 0;
+
+}
+
+.search-form > ul > li input[type="text"] { width:100%}
+
+.search-form > ul > li select {width:100%;}
+
+.search-form > ul > li .label-txt-area {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; -webkit-box-align: center;
+    -ms-flex-align: center; align-items: center;
+}
+
+.search-form > ul > li .col-style03 li select {border-radius:  5px 0 0 5px;}
+
+.search-form > ul > li .col-style03 li + li select{
+    border-radius: 0 5px 5px 0; border-left: 0;
+}
+
+.search-form > ul > li .col-style03 li + li select:focus{
+    border-left: 1px solid #534f8f;
+    margin-left:  -1px; width:calc(100% + 1px);
+}
+
+.search-form > ul > li .col-style03 li + li input{
+    border-radius: 0 5px 5px 0;
+    border-left: 0;
+}
+
+.search-form > ul > li .col-style03 li + li .rdo-btn2{
+    margin-left: -1px;
+}
+
+.search-form > ul > li .col-style03 li + li .rdo-btn2 input[type="radio"] + label:after {
+    border-radius: 5px 0 0 5px;
+}
+
+.search-form > ul > li .col-style03 li:first-child .rdo-btn2 input[type="radio"] + label:after{
+    border-radius: 5px 0 0 5px;
+}
+
+.search-form > ul > li .col-style03 li:last-child .rdo-btn2 input[type="radio"] + label:after{
+    border-radius: 0 5px 5px 0;
+}
+
+.search-form.ty2 > ul { overflow: hidden; margin:  0 -5px 0;}
+
+.search-form.ty2 > ul  + ul { margin-top: 10px;}
+
+.search-form.ty2 > ul > li{
+    float: left;
+    width:20%; padding:  0 5px;
+    box-sizing: border-box;
+    font-size: 0;
+}
+
+.search-form.ty2 > ul > li input[type="text"]{width:100%}
+
+.search-form.ty2 > ul > li select { width:100%}
+
+.search-form.ty2 > ul > li .label-txt-area{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.search-form.ty2 > ul > li .col-style03 li select{
+    border-radius: 5px;
+}
+
+.search-form.ty2 > ul > li .col-style03 li + li select{
+    border-radius: 5px; border-left-width: 1px;
+}
+
+.search-form.ty2 > ul > li .col-style03 li + li select:focus{
+    border-left: 1px solid #534f8f ;margin-left: 0; width:100%;
+}
+
+.search-form.ty2 > ul > li .col-style03  li +li input{
+    border-radius: 5px; border-left: 1px solid #dadada;
+}
+
+.search-form.ty2 > ul > li .col-style03 li + li input:focus{
+    border-left: 1px solid #534f8f; margin-left: 0;width: 100%;
+}
+
+.search-form .search-btn{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.search-form .search-btn .left{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display:  flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+}
+
+.search-form .search-btn .left .rdo-list + .label-txt{
+    margin-left: 23px;
+}
+
+.search-form .search-btn .left .rdo-list + .rdo-list{
+    margin-left: 10px;
+}
+
+.search-form .search-btn .left .datepicker-box{
+    max-width: 130px;
+}
+
+.search-form .search-btn .right .sch-btn{
+    display: inline-block;
+    width: 60px;
+    height: 36px;
+    line-height: 36px ;
+    color: #fff;
+    background: #474563;
+    border-radius: 5px;
+    font-size: 14px; font-weight: 500;
+
+}
+
+.search-form + .tbl-list{margin-top: 30px;}
+
+
+.selec {
+    height: 36px;
+    padding: 0 27px 0 12px;
+    background: #fff; border: 1px solid #dadada;
+    box-sizing: border-box ; border-radius: 5px;
+    font-size: 14px; outline: none;
+}
+
+
+
+.wp20 {width: 20% !important;}

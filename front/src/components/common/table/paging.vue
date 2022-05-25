@@ -72,7 +72,6 @@ export  default{
             for(let i = newValue.pageStartNo ; i <= newValue.pageEndNo ;i++){
                 pageNoArr.value.push(i)
             }
-    console.log(   pageNoArr.value.length )
               
         })
 
@@ -86,7 +85,7 @@ export  default{
                  store.commit('pageinfo/setPagingNum', pageNo)
 
                   let tmpSearchData = store.state.pageinfo.searchData
-
+                  
                  await store.dispatch(store.state.tableinfo.listFetchUrl, tmpSearchData)
         }
 

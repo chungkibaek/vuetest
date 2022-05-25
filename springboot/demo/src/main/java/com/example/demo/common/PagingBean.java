@@ -33,6 +33,8 @@ public class PagingBean {
 
     private int pageEndNo;
 
+    private String searchkeyword;
+
 
     //화면에 표시할 페이지 계산
     //totalRecordCount - 전체개수

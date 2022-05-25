@@ -1,6 +1,7 @@
 package com.example.demo.sample;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +30,7 @@ public class UserService {
     public List<UserInfoBean> getUserList(PagingBean pagingBean) {
 
         //전체카운트 조회
-        int totalCount = userMapper.getUserTotalCount();
+        int totalCount = userMapper.getUserTotalCount(pagingBean);
 
         pagingBean.calcPage(totalCount);
 
@@ -43,5 +44,35 @@ public class UserService {
     public UserInfoBean getUserDetail(UserInfoBean userinfoBean) {
         
         return userMapper.getUserDetail(userinfoBean);
+    }
+
+
+    @Transactional(rollbackFor = Exception.class)
+    public String updateUserInfo(UserInfoBean userinfoBean) {
+        
+        String result ="success";
+        userMapper.updateUserInfo(userinfoBean);
+
+        return result;
+    }
+
+    @Transactional(rollbackFor =  Exception.class)
+    public String insertUserInfo(UserInfoBean userinfoBean){
+        String result = "success";
+
+        userMapper.insertUserInfo(userinfoBean);
+        
+
+        return result;
+    }
+
+    @Transactional(rollbackFor =  Exception.class)
+    public String deleteUserInfo(UserInfoBean userinfoBean){
+        String result = "success";
+
+        userMapper.deleteUserInfo(userinfoBean);
+        
+
+        return result;
     }
 }

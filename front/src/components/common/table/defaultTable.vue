@@ -22,6 +22,11 @@
         </table>
 
         <Paging>
+            <template #buttonArea>
+                <div style="float: right;">
+                        <button type="button" class="btn btn-primary" @Click="moveRegage()">등록</button>
+                </div>
+            </template>
         </Paging>
 
     </div>
@@ -58,6 +63,7 @@ export default {
         const store = useStore()
         const router = useRouter()
         const detailPage = store.state.tableinfo.pathUrl.detail
+        const regPage = store.state.tableinfo.pathUrl.reg
 
         const pagingBean = computed(()  => store.state.pageinfo.pagingBean)
 
@@ -93,10 +99,22 @@ export default {
   
         }
 
+        const moveRegage = () =>{
+
+            console.log(regPage)
+            router.push({
+                name : regPage,
+                query : ''
+            })
+        }
+
 
         return {
             pagingBean,
-            goToDetail
+            regPage,
+            detailPage,
+            goToDetail,
+            moveRegage
         }
     }
 }

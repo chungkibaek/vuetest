@@ -14,9 +14,15 @@ import com.example.demo.common.UserInfoBean;
 public interface UserMapper {
     public List<HashMap<String, Object>> selectUsers();
 
-    public Integer getUserTotalCount();
+    public Integer getUserTotalCount(PagingBean pagingBean);
 
     public List<UserInfoBean> getUserList(PagingBean pagingBean);
 
     public UserInfoBean getUserDetail(UserInfoBean pagingBean);
+
+    public Integer updateUserInfo(UserInfoBean pagingBean);
+
+    public Integer insertUserInfo(UserInfoBean userinfoBean);
+    
+    public Integer deleteUserInfo(UserInfoBean userinfoBean);
 }

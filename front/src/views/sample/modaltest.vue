@@ -7,8 +7,14 @@
 <b-button variant="success" @click="ok()">
         날짜확인
 </b-button>
-<b-button variant="success" @click="confirmok()">
-        confirm확인
+<b-button variant="success" @click="confirm1()">
+        confirm확인1
+</b-button>
+<b-button variant="success" @click="confirm2()">
+        confirm확인2
+</b-button>
+<b-button variant="success" @click="confirm3()">
+        confirm확인3
 </b-button>
 </section>
 
@@ -72,9 +78,24 @@ export  default{
 
     }    
 
-    const confirmok=() =>{
+    const confirm1=() =>{
       
       store.commit("temp/setConfirmMessage","저장 하시겠습니까?")
+      store.commit("temp/setConfirmType",'userinfo')
+      store.commit("temp/setIsConfirmPopup")
+    }
+
+    const confirm2=() =>{
+      
+      store.commit("temp/setConfirmMessage","저장 하시겠습니까?")
+      store.commit("temp/setConfirmType",'login')
+      store.commit("temp/setIsConfirmPopup")
+    }
+    
+        const confirm3=() =>{
+      
+      store.commit("temp/setConfirmMessage","저장 하시겠습니까?")
+      store.commit("temp/setConfirmType",'datepicker')
       store.commit("temp/setIsConfirmPopup")
     }
 
@@ -83,7 +104,9 @@ export  default{
       searchName,
       updateCheck,
       ok,
-      confirmok
+      confirm1,
+      confirm2,
+      confirm3
 
     }
 

@@ -8,6 +8,7 @@ export default {
         isConfirmPopup : false,
         alterMessage : '',
         confirmMessage : '',
+        confirmType : '',
         popupInfo : {size : '', contentkey : '',headerName : '' },
         authUserId : getUserFromCookie() | ''
     },
@@ -38,6 +39,12 @@ export default {
         },
         clerarConfirmMessage(state){
             state.confirmMessage = ''
+        },
+        setConfirmType(state, paylod){
+            state.confirmType = paylod
+        },
+        clearConfirmType(sate){
+            state.confirmType = ''
         }
     },
     actions : {

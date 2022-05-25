@@ -34,15 +34,12 @@
         </div>
       </div>    
 
-      <div class="mb-3 row">
-        <div class="col-6 d-grid p-1">
-          <button type="button" class="btn btn-lg btn-dark float-right" @Click="moveRoter('userInfo')">목록
-            
-          </button>
-        </div>
-        <div class="col-6 d-grid p-1">
-          <button type="button" class="btn btn-lg btn-danger float-right" @Click="moveRoter('userReg')">수정</button>
-        </div>
+      <div style="float:left">     
+          <button type="button" class="btn btn-dark" @Click="moveRoter('userInfo')">목록 </button>               
+      </div>  
+        <div style="float:right">
+          <button type="button" class="btn btn-primary" @Click="moveRoter('userReg')">수정</button>      
+          <button type="button" class="btn btn btn-danger" @Click="deleteUser()">삭제</button>
       </div>
     </div>
   </main>
@@ -51,7 +48,7 @@
 <script>
 import {useStore} from 'vuex'
 import {useRouter, useRoute} from 'vue-router'
-
+import {deleteUserInfoAjax} from '@/api/boardApi'
 import {ref, onMounted , computed, onUnmounted} from 'vue'
 export  default{
     name :'',
@@ -97,12 +94,32 @@ export  default{
         }
 
 
+        const deleteUser = async () =>{
+
+
+          let tempSaveData = {
+            idx : route.query.idx
+          }          
+           let result = await deleteUserInfoAjax(tempSaveData)
+
+
+            if(result.result == 'success'){
+                 
+                  router.push({
+                      name : listPage
+                  })
+
+            }     
+        }
+
+
         return {
           data,
           pageNo,
           listPage,
           regPage,
-          moveRoter
+          moveRoter,
+          deleteUser
         }
     }
 

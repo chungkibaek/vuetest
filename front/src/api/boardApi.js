@@ -59,6 +59,7 @@ export const getboardList = async (item) =>{
 
 export const getUserList = async (item) =>{
 
+    console.log(item)
     const{status, data} = await get('/api/users',item)
 
     if(status == 200 ){
@@ -83,8 +84,8 @@ export const getUserDetail = async (item) =>{
 
 
 export const updateUserInfoAjax = async(parmas) =>{
-    
-    const{status, data} = await post('/api/userInfoUpdate',parmas)
+    console.log('updateUserInfoAjax  call')
+    const{status, data} = await post('/api/updateUserinfo',parmas)
 
     if(status == 200 ){
         console.log(status)
@@ -95,9 +96,23 @@ export const updateUserInfoAjax = async(parmas) =>{
 
 }
 
-export const regUserInfoAjax = async(parmas) =>{
-    
-    const{status, data} = await post('/api/userInfoInsert',parmas)
+export const insertUserInfoAjax = async(parmas) =>{
+    console.log('insertUserInfoAjax  call')
+    const{status, data} = await post('/api/insertUserInfo',parmas)
+
+    if(status == 200 ){
+        console.log(status)
+        console.log(data)
+
+        return data
+    }
+
+}
+
+
+export const deleteUserInfoAjax = async(parmas) =>{
+    console.log('deleteUserInfoAjax  call')
+    const{status, data} = await post('/api/deleteUserInfo',parmas)
 
     if(status == 200 ){
         console.log(status)

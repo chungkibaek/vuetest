@@ -12,7 +12,9 @@ import com.example.demo.common.UserInfoBean;
 import com.example.demo.sample.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,10 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-public class TestController {
+public class UserController {
 
     private UserService userService;
-    public TestController(UserService userService){
+    public UserController(UserService userService){
         this.userService = userService;
     }
     @GetMapping("/test")
@@ -43,7 +45,7 @@ public class TestController {
 
     // @RequestMapping(value="/users", method = RequestMethod.GET)
     @GetMapping("/api/users")
-    public Map<String, Object> getUsers(@RequestParam(name = "pageNo") String pageNo) {
+    public Map<String, Object> getUsers(@RequestParam(name = "pageNo") String pageNo, @RequestParam(name="searchKeyword") String searchKeyworkd) {
 
         Map<String, Object> map = new HashMap<String, Object>();
 
@@ -54,6 +56,7 @@ public class TestController {
         PagingBean pagingBean = new PagingBean();
 
         pagingBean.setPageNo(Integer.parseInt(pageNo));
+        pagingBean.setSearchkeyword(searchKeyworkd);
         pagingBean.setCountPerPage(5);
         pagingBean.setCountPerRecord(10);
 
@@ -85,5 +88,54 @@ public class TestController {
 
         return map;
     }
+
+    
+    @PostMapping("/api/updateUserinfo")
+    // @RequestMapping(value="/api/updateUserinfo", method = RequestMethod.POST)
+    public Map<String, Object> updateUserInfo(@RequestBody UserInfoBean userbean, HttpServletRequest request) throws Exception {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        System.out.println("updateUserInfo start--------------------------");
+        System.out.println("id----->" + userbean.getIdx());
+
+        String result = userService.updateUserInfo(userbean);
+
+        map.put("result", result);
+
+        return map;
+    }
+
+
+     @PostMapping("/api/insertUserInfo")
+    // @RequestMapping(value="/api/insertUserInfo", method = RequestMethod.POST)
+    public Map<String, Object> insertUserInfo(@RequestBody UserInfoBean userbean, HttpServletRequest request) throws Exception {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        System.out.println("insertUserInfo start--------------------------");
+
+        String result = userService.insertUserInfo(userbean);
+
+        map.put("result", result);
+
+        return map;
+    }
+    @PostMapping("/api/deleteUserInfo")
+    public Map<String, Object> deleteUserInfo(@RequestBody UserInfoBean userbean, HttpServletRequest request) throws Exception {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        System.out.println("deleteUserInfo start--------------------------");
+
+        String result = userService.deleteUserInfo(userbean);
+
+        map.put("result", result);
+
+        return map;
+    }
+
+
+    
 
 }

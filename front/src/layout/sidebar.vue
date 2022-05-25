@@ -8,6 +8,7 @@
                             <div class="sb-sidenav-menu-heading">웹 메뉴</div>
                             <!-- <router-link to="/noticeInfo" class="nav-link" >게시판</router-link> -->
                             <a class="nav-link" href="#" @click="moveRouter('user')">사용자정보</a>
+                            <a class="nav-link" href="#" @click="moveRouter('item')">아이템평가</a>
                             <a class="nav-link" href="#" @click="moveRouter('notice')">게시판</a>
                             <a class="nav-link" href="#" @click="moveRouter('login')">EX_로그인</a>
                             <a class="nav-link" href="/modaltest">EX_모달</a>
@@ -47,6 +48,9 @@ export  default{
             case 'login':
               path = '/logintest'
               break;
+              case 'item' :
+                path = 'itemInfo'
+                break;
           }
 
           router.push({
